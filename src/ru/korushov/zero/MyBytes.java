@@ -11,15 +11,6 @@ public class MyBytes {
 
     private long checkedBytes;
 
-    public MyBytes(byte[] bytes, long length) {
-        this.bytes = bytes;
-        this.length = length;
-        checkedBytes = 0;
-    }
-
-    public MyBytes() {
-    }
-
     public byte[] getBytes() {
         return bytes;
     }

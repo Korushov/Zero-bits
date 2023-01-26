@@ -18,7 +18,7 @@ public class Main {
         }
 
         MyThread myThread = new MyThread(myBytes);
-        myThread.run();
+        myThread.start();
         System.out.println(myThread.returnCount());
     }
 }
