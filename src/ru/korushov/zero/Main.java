@@ -13,16 +13,13 @@ import java.util.concurrent.*;
 public class Main {
     public static void main(String[] args) throws Exception {
 
-        //Количество потоков для выполенения программы
-        int threadCount = Integer.parseInt(args[1]);
         long time = System.currentTimeMillis();
 
         FileInputStream fis = new FileInputStream(args[0]);
         int fileSize = fis.available();
-        System.out.println(fileSize + " всего байт для проверки");
-        int threadSize = fileSize/threadCount;
+        int threadSize = fileSize/Integer.parseInt(args[1]);
 
-        ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(threadCount);
+        ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(Integer.parseInt(args[1]);
 
         //Список для хранения результатов от каждого потока
         List<Future<Integer>> zerosOfEachThread = new ArrayList<>();
