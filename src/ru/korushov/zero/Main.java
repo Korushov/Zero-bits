@@ -19,7 +19,7 @@ public class Main {
         int fileSize = fis.available();
         int threadSize = fileSize/Integer.parseInt(args[1]);
 
-        ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(Integer.parseInt(args[1]);
+        ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(Integer.parseInt(args[1]));
 
         //Список для хранения результатов от каждого потока
         List<Future<Integer>> zerosOfEachThread = new ArrayList<>();
@@ -39,11 +39,6 @@ public class Main {
         zerosOfEachThread.add(future);
 
         executor.shutdown();
-
-        while (!executor.isTerminated())
-        {
-            executor.awaitTermination(1, TimeUnit.MINUTES);
-        }
 
         int allZeros = 0;
         for (Future<Integer> zeros: zerosOfEachThread) {
