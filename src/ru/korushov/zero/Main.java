@@ -2,6 +2,7 @@ package ru.korushov.zero;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
@@ -15,8 +16,8 @@ import static java.lang.Thread.sleep;
 public class Main {
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
         String fileName = "src/zero-bits.txt";
-        int threadCount = 2;
-//        Counter counter = new Counter(new AtomicInteger(0), new AtomicInteger(0));
+        int threadCount = 3;
+        long time = System.currentTimeMillis();
 
         FileInputStream fis = new FileInputStream(fileName);
         int fileSize = fis.available();
@@ -31,14 +32,17 @@ public class Main {
         int i = 0;
         while (fileSize >= threadSize) {
             Future<Integer> future = executor.submit(new Task(startPoint, threadSize, fis, i));
+//            sleep(10000);
             zerosOfEachThread.add(future);
             fileSize -= threadSize;
             startPoint += threadSize;
             i++;
         }
 
-//        Future<Integer> future = executor.submit(new Task(startPoint, threadSize, fis, i));
-//        zerosOfEachThread.add(future);
+        if (fileSize != threadSize) {
+            Future<Integer> future = executor.submit(new Task(startPoint, threadSize, fis, i));
+            zerosOfEachThread.add(future);
+        }
 
         executor.shutdown();
 
@@ -54,6 +58,7 @@ public class Main {
         }
         System.out.println("Finish all threads");
         System.out.println(allZeros);
+        System.out.println(System.currentTimeMillis() - time);
     }
 }
 
